@@ -112,3 +112,4 @@ If you want to change an object, be it point, segment, or function, you can do t
 
 The "0" in the first parameter is the index of the segment when you add a segment in. So if you want to change the first segment you put in the graph, you call `graph.changeSegment(0, ...)`, if you want to change the 5th function you put in, you call `graph.changeFunc(4, ...)`
 
+If you have any questions or concern you can contact me via 157239q@gmail.com
