@@ -2,6 +2,7 @@ package org.kelvinho.graph2d.geometries;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("unused")
 public class Segment extends Geometry {
     private Point point1, point2;
     public Segment(@Nonnull Point point1, @Nonnull Point point2) {
