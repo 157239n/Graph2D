@@ -24,8 +24,8 @@ public class Graph2D {
     private ArrayList<Geometry> geometries = new ArrayList<>();
     private PGraphics frame;
     private PApplet proc;
-    private PVector scale = new PVector(20, -20), center = new PVector(0, 0), originalCenter = new PVector(0, 0), startCoor = new PVector(0, 0), pos = new PVector(0, 0);
-    private int backgroundColor = Environment.Color.color(50), gridColor = Environment.Color.color(200), elementColor = Environment.Color.color(200);
+    private PVector scale = new PVector(20, -20), center = new PVector(0, 0), originalCenter = new PVector(0, 0), startCoordinate = new PVector(0, 0), pos = new PVector(0, 0);
+    private int backgroundColor = Color.color(50), gridColor = Color.color(200), elementColor = Color.color(200);
     private int textHeight = 11;
     private boolean pMousePressed = false;
     @SuppressWarnings("FieldCanBeLocal")
@@ -91,42 +91,43 @@ public class Graph2D {
 
     /*add elements (14), addPoint (4), addSegment(4), addFunc (4), addPoly(2)*/
 
-    public Graph2D addPoint(Point point) {
+    public Graph2D addPoint(@Nonnull Point point) {
         geometries.add(new Geometry());
         return changePoint(geometries.size() - 1, point);
     }
 
-    public Graph2D addPoint(Point point, int col) {
+    @SuppressWarnings("UnusedReturnValue")
+    public Graph2D addPoint(@Nonnull Point point, int col) {
         geometries.add(new Geometry());
         return changePoint(geometries.size() - 1, point, col);
     }
 
-    public Graph2D addSegment(Segment segment) {
+    public Graph2D addSegment(@Nonnull Segment segment) {
         geometries.add(new Geometry());
         return changeSegment(geometries.size() - 1, segment);
     }
 
-    public Graph2D addSegment(Segment segment, int col) {
+    public Graph2D addSegment(@Nonnull Segment segment, int col) {
         geometries.add(new Geometry());
         return changeSegment(geometries.size() - 1, segment, col);
     }
 
-    public Graph2D addFunc(FunctionBasedGeometry functionBasedGeometry, int col) {
+    public Graph2D addFunc(@Nonnull FunctionBasedGeometry functionBasedGeometry, int col) {
         geometries.add(new Geometry());
         return changeFunc(geometries.size() - 1, functionBasedGeometry, col);
     }
 
-    public Graph2D addFunc(FunctionBasedGeometry functionBasedGeometry) {
+    public Graph2D addFunc(@Nonnull FunctionBasedGeometry functionBasedGeometry) {
         geometries.add(new Geometry());
         return changeFunc(geometries.size() - 1, functionBasedGeometry);
     }
 
-    public Graph2D addPoly(Polygon polygon, int color) {
+    public Graph2D addPoly(@Nonnull Polygon polygon, int color) {
         geometries.add(new Geometry());
         return changePoly(geometries.size() - 1, polygon, color);
     }
 
-    public Graph2D addPoly(Polygon polygon) {
+    public Graph2D addPoly(@Nonnull Polygon polygon) {
         geometries.add(new Geometry());
         return changePoly(geometries.size() - 1, polygon);
     }
@@ -154,7 +155,6 @@ public class Graph2D {
         throw new CannotFindSuitableWidth();
     }
 
-    @SuppressWarnings("ConstantConditions")
     String round(double number, int powersOfTenInvolved) {
         //int powersOfTenInvolved = (int) Math.round(Math.log10(2 * Math.abs(number))) - 1;
         int decimalPlaces = powersOfTenInvolved < 0 ? -powersOfTenInvolved : 0;
@@ -177,7 +177,7 @@ public class Graph2D {
         frame.beginDraw();
         frame.background(backgroundColor);
         frame.pushMatrix();
-        frame.translate(m / 2, n / 2);
+        frame.translate(m / 2f, n / 2f);
         frame.strokeWeight(1);
         class Boundary {
             double lowerBoundary, upperBoundary;
@@ -193,8 +193,8 @@ public class Graph2D {
             }
         }
         /*mathematical initialization*/
-        Boundary rBorderX = new Boundary(-m / 2, m / 2);
-        Boundary rBorderY = new Boundary(-n / 2, n / 2);
+        Boundary rBorderX = new Boundary(-m / 2f, m / 2f);
+        Boundary rBorderY = new Boundary(-n / 2f, n / 2f);
         Boundary mBorderX = new Boundary(mX.transform(rBorderX.lowerBoundary), mX.transform(rBorderX.upperBoundary));
         Boundary mBorderY = new Boundary(mY.transform(rBorderY.lowerBoundary), mY.transform(rBorderY.upperBoundary));
         /*draw the grid*/
@@ -323,13 +323,13 @@ public class Graph2D {
     private void pushMouse() {
         if (pos.x <= proc.mouseX && pos.x + frame.width > proc.mouseX && pos.y <= proc.mouseY && pos.y + frame.height > proc.mouseY) {
             mousePressing = true;
-            startCoor = new PVector(proc.mouseX, proc.mouseY);
+            startCoordinate = new PVector(proc.mouseX, proc.mouseY);
         }
     }
 
     private void updateMouse() {
         if (mousePressing) {
-            PVector tmp = PVector.sub(new PVector(proc.mouseX, proc.mouseY), startCoor);
+            PVector tmp = PVector.sub(new PVector(proc.mouseX, proc.mouseY), startCoordinate);
             center = PVector.sub(originalCenter, new PVector(tmp.x / scale.x, tmp.y / scale.y));
         }
     }

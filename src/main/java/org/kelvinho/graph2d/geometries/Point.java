@@ -4,6 +4,7 @@ import processing.core.PVector;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Point extends Geometry {
     private double x, y, z;
 
